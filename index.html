@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Hildah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial;
+      background: #0b0b10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    /* 🌌 stars background */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+    }
+
+    .stars::before,
+    .stars::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(white 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveStars 60s linear infinite;
+      opacity: 0.15;
+    }
+
+    .stars::after {
+      animation-duration: 120s;
+      opacity: 0.1;
+    }
+
+    @keyframes moveStars {
+      from { transform: translate(0,0); }
+      to { transform: translate(-500px, -500px); }
+    }
+
+    /* 🎬 intro screen */
+    .intro {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #0b0b10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .intro h1 {
+      color: #ff4d6d;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #ff4d6d;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* 💌 card */
+    .card {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+      padding: 25px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(255, 77, 109, 0.25);
+      display: none;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: #ff4d6d;
+    }
+
+    p {
+      line-height: 1.7;
+      white-space: pre-line;
+      color: #e5e5e5;
+    }
+
+    /* 💖 glow effect */
+    .glow {
+      animation: glow 2s infinite;
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px rgba(255,77,109,0.2); }
+      50% { box-shadow: 0 0 25px rgba(255,77,109,0.5); }
+      100% { box-shadow: 0 0 10px rgba(255,77,109,0.2); }
+    }
+
+    .music {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: #aaa;
+      z-index: 3;
+    }
+
+    #finalLine {
+      display: none;
+      margin-top: 15px;
+      color: #ff4d6d;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- 🎬 INTRO -->
+<div class="intro" id="intro">
+  <h1>🌹 A message for Hildah</h1>
+  <button onclick="start()">Open</button>
+</div>
+
+<!-- 💌 MESSAGE -->
+<div class="card glow" id="card">
+  <h2>💌 Message</h2>
+  <p id="msg"></p>
+  <div id="finalLine">— John</div>
+</div>
+
+<!-- 🎵 MUSIC -->
+<div class="music">🎵 D Major – Deal is Done</div>
+
+<audio id="bgmusic" loop>
+  <source src="d-major-deal-is-done.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function start() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("card").style.display = "block";
+
+  const music = document.getElementById("bgmusic");
+  music.volume = 0.6;
+  music.play();
+
+  typeText();
+}
+
+const text = `Hey Hildah 🌹
+
+I didn’t know how to say this in a normal message, so I made this instead.
+
+You’ve been on my mind a lot lately.
+Not in a loud or confusing way… just a calm one.
+
+I really like you, and I just wanted you to know that honestly.
+
+Mi nakupenda tu sana Hildah, na ata kama things are rough between us sometimes, mi sijai acha kukupenda.
+
+`;
+
+let i = 0;
+function typeText() {
+  if (i < text.length) {
+    document.getElementById("msg").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeText, 35);
+  } else {
+    document.getElementById("finalLine").style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>
